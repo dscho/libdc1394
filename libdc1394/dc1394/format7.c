@@ -35,6 +35,15 @@
 #include "config.h"
 #include "log.h"
 
+#ifdef WIN32
+#include <windows.h>
+static inline void win_usleep(useconds_t nanoseconds)
+{
+	Sleep(nanoseconds / 1000);
+}
+#define usleep win_usleep
+#endif
+
 /*==========================================================================
  * This function implements the handshaking available (and sometimes required)
  * on some cameras that comply with the IIDC specs v1.30. Thanks to Yasutoshi

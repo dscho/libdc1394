@@ -27,6 +27,15 @@
 #include <string.h>
 #include "vendor/avt.h"
 
+#ifdef WIN32
+#include <windows.h>
+#define usleep win_usleep
+static inline void usleep(useconds_t nanoseconds)
+{
+	Sleep(nanoseconds / 1000);
+}
+#endif
+
 /********************************************************/
 /* Configuration Register Offsets for Advances features */
 /********************************************************/
